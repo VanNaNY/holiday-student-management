@@ -105,6 +105,13 @@ npm install
 npm run dev    # http://localhost:5173 （/api 自动代理到后端 8080）
 ```
 
+签到页地图（高德 Web端 JS API）：复制 `frontend/.env.example` 为 `frontend/.env.local` 并填入自己的 Key 与安全密钥（`.env.local` 已被 `.gitignore` 忽略，不会提交）。未配置时地图不显示，定位与签到逻辑照常工作。
+
+```bash
+cp frontend/.env.example frontend/.env.local
+# 编辑 .env.local：VITE_AMAP_KEY / VITE_AMAP_SECURITY
+```
+
 ### PC 后台（admin）
 
 ```bash

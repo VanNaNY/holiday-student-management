@@ -11,9 +11,10 @@
       <van-cell v-else title="签到规则" value="未配置" />
     </van-cell-group>
 
-    <div class="map-placeholder">
-      <van-icon name="location-o" size="32" />
-      <p>地图展示需配置高德地图 Key</p>
+    <FenceMap :center="fenceCenter" :radius="Number(rule?.fenceRadius) || 0" :mine="myLoc" />
+
+    <div v-if="result || myAddress" class="status-bar">
+      <p v-if="myAddress" class="addr">当前位置：{{ myAddress }}</p>
       <p v-if="result" :class="result.success ? 'ok' : 'fail'">{{ result.message }}</p>
     </div>
 
@@ -36,17 +37,28 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { showSuccessToast, showToast } from 'vant'
 import { currentBatch } from '../../api/auth'
 import { checkinRule, stayCheckin, myStayCheckins } from '../../api/checkin'
 import { getLocation } from '../../utils/geo'
+import { loadAMap, reverseGeocode } from '../../utils/amap'
+import FenceMap from '../../components/FenceMap.vue'
 
 const batchId = ref(null)
 const rule = ref(null)
 const records = ref([])
 const loading = ref(false)
 const result = ref(null)
+const myLoc = ref(null)
+const myAddress = ref('')
+
+// 围栏中心（供地图展示）
+const fenceCenter = computed(() =>
+  rule.value?.fenceLat != null
+    ? { lat: Number(rule.value.fenceLat), lng: Number(rule.value.fenceLng) }
+    : null
+)
 
 const fmt = (s) => (s ? s.replace('T', ' ').slice(0, 16) : '-')
 
@@ -69,7 +81,15 @@ async function doCheckin(simulate) {
     } else {
       loc = await getLocation()
     }
-    const res = await stayCheckin({ batchId: batchId.value, lat: loc.lat, lng: loc.lng })
+    myLoc.value = loc
+    // 逆地理编码（可选，失败不阻塞签到）
+    try {
+      const AMap = await loadAMap()
+      myAddress.value = await reverseGeocode(AMap, loc.lng, loc.lat)
+    } catch { /* 未配置 Key 或加载失败时忽略 */ }
+    const res = await stayCheckin({
+      batchId: batchId.value, lat: loc.lat, lng: loc.lng, address: myAddress.value || undefined
+    })
     result.value = res
     if (res.success) {
       showSuccessToast('签到成功')
@@ -91,19 +111,22 @@ onMounted(() => load().catch((e) => showToast(e.message)))
 .block {
   margin-top: 12px;
 }
-.map-placeholder {
-  margin: 12px 16px;
-  padding: 24px;
+.status-bar {
+  margin: 0 16px;
+  padding: 12px 16px;
   background: #fff;
   border-radius: 8px;
   text-align: center;
-  color: #969799;
 }
-.map-placeholder .ok {
+.status-bar .addr {
+  color: #646566;
+  font-size: 13px;
+}
+.status-bar .ok {
   color: #07c160;
   font-weight: 600;
 }
-.map-placeholder .fail {
+.status-bar .fail {
   color: #ee0a24;
   font-weight: 600;
 }
