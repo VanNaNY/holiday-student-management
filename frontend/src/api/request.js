@@ -19,13 +19,21 @@ request.interceptors.request.use((config) => {
 request.interceptors.response.use(
   (resp) => {
     const body = resp.data
+    if (body instanceof Blob) return body
     if (body && typeof body.code !== 'undefined') {
       if (body.code === 200) return body.data
       return Promise.reject(new Error(body.msg || '请求失败'))
     }
     return body
   },
-  (err) => Promise.reject(err)
+  (err) => {
+    if (err.response && err.response.status === 401) {
+      localStorage.removeItem('token')
+      if (location.pathname !== '/login') location.href = '/login'
+    }
+    const msg = err.response?.data?.msg || err.message || '网络错误'
+    return Promise.reject(new Error(msg))
+  }
 )
 
 export default request

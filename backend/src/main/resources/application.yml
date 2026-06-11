@@ -9,6 +9,11 @@ spring:
   profiles:
     # 默认使用 dev(H2)，本机可直接运行；生产用 prod(MySQL)
     active: dev
+  servlet:
+    multipart:
+      # 留校附件单图 ≤30MB
+      max-file-size: 30MB
+      max-request-size: 160MB
 
 # Swagger UI: http://localhost:8080/api/swagger-ui.html
 springdoc:
@@ -20,3 +25,30 @@ management:
     web:
       exposure:
         include: health,info
+
+# MyBatis-Plus 全局配置
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  global-config:
+    db-config:
+      id-type: auto
+  configuration:
+    map-underscore-to-camel-case: true
+
+# JWT 配置（密钥经环境变量注入；下方默认值仅用于本地开发，生产必须覆盖）
+jwt:
+  secret: ${JWT_SECRET:dev-only-secret-please-override-in-prod-0123456789abcdef}
+  # token 有效期（分钟），默认 12 小时
+  expire-minutes: ${JWT_EXPIRE_MINUTES:720}
+  header: Authorization
+  prefix: "Bearer "
+
+# 文件上传配置
+app:
+  upload:
+    # 本地磁盘存储目录（相对运行目录）
+    dir: ${UPLOAD_DIR:./uploads}
+    # 单文件最大 30MB
+    max-size: 31457280
+    # 访问前缀
+    url-prefix: /files

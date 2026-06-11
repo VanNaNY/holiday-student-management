@@ -2,9 +2,9 @@
   <div class="login-wrap">
     <el-card class="login-card">
       <h2 class="title">假期管理后台</h2>
-      <el-form :model="form" label-width="0">
+      <el-form :model="form" @submit.prevent="onLogin">
         <el-form-item>
-          <el-input v-model="form.loginName" placeholder="工号" :prefix-icon="User" />
+          <el-input v-model="form.loginName" placeholder="工号 / admin" :prefix-icon="User" />
         </el-form-item>
         <el-form-item>
           <el-input
@@ -13,24 +13,45 @@
             placeholder="密码"
             :prefix-icon="Lock"
             show-password
+            @keyup.enter="onLogin"
           />
         </el-form-item>
-        <el-button type="primary" style="width: 100%" @click="onLogin">登录</el-button>
+        <el-button type="primary" style="width: 100%" :loading="loading" @click="onLogin">
+          登录
+        </el-button>
       </el-form>
-      <p class="tip">登录接口将在 Phase 1 接入。</p>
+      <p class="tip">测试账号：admin / 123456</p>
     </el-card>
   </div>
 </template>
 
 <script setup>
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { User, Lock } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
+import { useUserStore } from '../store/user'
 
+const router = useRouter()
+const userStore = useUserStore()
 const form = reactive({ loginName: '', password: '' })
+const loading = ref(false)
 
-function onLogin() {
-  ElMessage.info('登录功能将在 Phase 1 实现')
+async function onLogin() {
+  if (!form.loginName || !form.password) {
+    ElMessage.warning('请输入账号和密码')
+    return
+  }
+  loading.value = true
+  try {
+    const user = await userStore.login({ ...form })
+    ElMessage.success(`欢迎，${user.name}`)
+    router.push('/dashboard')
+  } catch (e) {
+    ElMessage.error(e.message)
+  } finally {
+    loading.value = false
+  }
 }
 </script>
 

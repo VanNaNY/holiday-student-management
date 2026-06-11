@@ -1,16 +1,23 @@
-# 开发环境：H2 文件数据库，无需安装 MySQL 即可运行
+# 开发环境：H2 内存数据库，每次启动重建表并灌入种子数据，便于反复调试。
+# 运行期建表脚本：classpath:db/schema.sql、db/data.sql（与 docs/db 保持一致）。
 spring:
   datasource:
-    url: jdbc:h2:file:./data/holiday;MODE=MySQL;DB_CLOSE_DELAY=-1;AUTO_SERVER=TRUE
+    url: jdbc:h2:mem:holiday;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     driver-class-name: org.h2.Driver
     username: sa
     password: ""
   h2:
     console:
       enabled: true
-      # H2 控制台: http://localhost:8080/api/h2-console
+      # H2 控制台: http://localhost:8080/api/h2-console (JDBC URL 同上)
       path: /h2-console
   sql:
     init:
-      # 后续阶段把 schema/data 放到 classpath，按需开启
-      mode: never
+      mode: always
+      schema-locations: classpath:db/schema.sql
+      data-locations: classpath:db/data.sql
+
+# 开发期打印 SQL
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

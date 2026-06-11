@@ -5,3 +5,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: ${DB_USER:root}
     password: ${DB_PASSWORD:root}
+  # 生产不自动建表/灌数据，请手动导入 docs/db/schema.sql、data.sql
+  sql:
+    init:
+      mode: never
