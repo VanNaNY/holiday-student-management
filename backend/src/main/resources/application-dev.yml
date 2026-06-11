@@ -1,0 +1,16 @@
+# 开发环境：H2 文件数据库，无需安装 MySQL 即可运行
+spring:
+  datasource:
+    url: jdbc:h2:file:./data/holiday;MODE=MySQL;DB_CLOSE_DELAY=-1;AUTO_SERVER=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  h2:
+    console:
+      enabled: true
+      # H2 控制台: http://localhost:8080/api/h2-console
+      path: /h2-console
+  sql:
+    init:
+      # 后续阶段把 schema/data 放到 classpath，按需开启
+      mode: never

@@ -1,0 +1,10 @@
+node_modules/
+dist/
+dist-ssr/
+*.local
+.DS_Store
+
+# 编辑器
+.idea/
+.vscode/
+*.log

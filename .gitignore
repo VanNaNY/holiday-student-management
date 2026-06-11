@@ -1,0 +1,18 @@
+# 设计图：作为本地需求基线保留，不推送到公开仓库
+docs/design/
+
+# 依赖与构建产物
+node_modules/
+dist/
+target/
+
+# 后端本地运行数据
+backend/data/
+uploads/
+
+# 编辑器 / 系统
+.idea/
+.vscode/
+*.iml
+.DS_Store
+*.log

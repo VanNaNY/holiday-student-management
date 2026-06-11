@@ -1,0 +1,22 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: holiday-backend
+  profiles:
+    # 默认使用 dev(H2)，本机可直接运行；生产用 prod(MySQL)
+    active: dev
+
+# Swagger UI: http://localhost:8080/api/swagger-ui.html
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
