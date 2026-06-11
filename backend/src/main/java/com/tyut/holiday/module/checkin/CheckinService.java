@@ -217,6 +217,10 @@ public class CheckinService {
 
     private Scope staffScope() {
         String role = UserContext.activeRole();
+        if (Roles.ADMIN.equals(role)) {
+            // 管理员查看全部，无需 staff 档案
+            return new Scope(null, null);
+        }
         Staff staff = staffSupport.currentStaff();
         if (Roles.COUNSELOR.equals(role)) {
             return new Scope(staff.getId(), null);

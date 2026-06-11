@@ -141,6 +141,10 @@ public class ApprovalWorkflowService {
 
     private Ctx ctx() {
         String role = UserContext.activeRole();
+        if (Roles.ADMIN.equals(role)) {
+            // 管理员只读查询：不限节点、不限范围
+            return new Ctx(null, null, null);
+        }
         Staff staff = staffSupport.currentStaff();
         if (Roles.COUNSELOR.equals(role)) {
             return new Ctx(Constants.ApprovalNode.COUNSELOR, staff.getId(), null);
@@ -176,6 +180,10 @@ public class ApprovalWorkflowService {
     /** 管辖范围校验：辅导员限本班、副书记限本院 */
     private void assertInScope(StayApplication app) {
         String role = UserContext.activeRole();
+        if (Roles.ADMIN.equals(role)) {
+            // 管理员可查看任意申请详情
+            return;
+        }
         Staff staff = staffSupport.currentStaff();
         Student stu = studentMapper.selectById(app.getStudentId());
         if (stu == null) {

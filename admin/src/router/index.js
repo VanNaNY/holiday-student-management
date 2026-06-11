@@ -30,6 +30,36 @@ const routes = [
         name: 'Student',
         component: () => import('../views/Student.vue'),
         meta: { title: '学生管理' }
+      },
+      {
+        path: 'staff',
+        name: 'Staff',
+        component: () => import('../views/Staff.vue'),
+        meta: { title: '教职工管理' }
+      },
+      {
+        path: 'stat',
+        name: 'Stat',
+        component: () => import('../views/Stat.vue'),
+        meta: { title: '统计与导出' }
+      },
+      {
+        path: 'approval',
+        name: 'Approval',
+        component: () => import('../views/Approval.vue'),
+        meta: { title: '审批记录查询' }
+      },
+      {
+        path: 'checkin',
+        name: 'Checkin',
+        component: () => import('../views/Checkin.vue'),
+        meta: { title: '签到记录查询' }
+      },
+      {
+        path: 'config',
+        name: 'Config',
+        component: () => import('../views/Config.vue'),
+        meta: { title: '系统配置' }
       }
     ]
   }

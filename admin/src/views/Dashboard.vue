@@ -30,10 +30,22 @@
     </el-row>
     <el-alert
       style="margin-top: 16px"
-      title="Phase 1 已接入：登录鉴权、批次管理、学生导入。后续阶段补全统计/审批查询等。"
-      type="info"
+      title="后台已接入：批次管理、学生导入、教职工管理、统计与导出、审批记录查询、签到记录查询、系统配置。"
+      type="success"
       :closable="false"
     />
+    <el-card style="margin-top: 16px">
+      <template #header>更多管理</template>
+      <el-button type="primary" link @click="$router.push('/staff')">教职工管理</el-button>
+      <el-divider direction="vertical" />
+      <el-button type="primary" link @click="$router.push('/stat')">统计与导出</el-button>
+      <el-divider direction="vertical" />
+      <el-button type="primary" link @click="$router.push('/approval')">审批记录查询</el-button>
+      <el-divider direction="vertical" />
+      <el-button type="primary" link @click="$router.push('/checkin')">签到记录查询</el-button>
+      <el-divider direction="vertical" />
+      <el-button type="primary" link @click="$router.push('/config')">系统配置</el-button>
+    </el-card>
   </div>
 </template>
 

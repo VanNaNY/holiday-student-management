@@ -13,6 +13,21 @@
         <el-menu-item index="/student">
           <el-icon><User /></el-icon><span>学生管理</span>
         </el-menu-item>
+        <el-menu-item index="/staff">
+          <el-icon><Avatar /></el-icon><span>教职工管理</span>
+        </el-menu-item>
+        <el-menu-item index="/stat">
+          <el-icon><DataAnalysis /></el-icon><span>统计与导出</span>
+        </el-menu-item>
+        <el-menu-item index="/approval">
+          <el-icon><Tickets /></el-icon><span>审批记录查询</span>
+        </el-menu-item>
+        <el-menu-item index="/checkin">
+          <el-icon><Location /></el-icon><span>签到记录查询</span>
+        </el-menu-item>
+        <el-menu-item index="/config">
+          <el-icon><Setting /></el-icon><span>系统配置</span>
+        </el-menu-item>
       </el-menu>
     </el-aside>
     <el-container>
