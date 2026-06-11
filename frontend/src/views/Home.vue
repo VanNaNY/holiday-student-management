@@ -91,14 +91,14 @@ const roleActions = computed(() =>
     .map((r) => ({ name: roleLabel(r), role: r }))
 )
 
-// 功能入口（按角色）—— Phase 1 为占位，后续阶段接入
+// 功能入口（按角色）
 const STUDENT_FEATURES = [
-  { key: 'leave', icon: 'logistics', text: '离校登记' },
-  { key: 'stay', icon: 'completed', text: '留校申请' },
-  { key: 'return', icon: 'back-top', text: '返校登记' },
+  { key: 'leave', icon: 'logistics', text: '离校登记', to: '/leave' },
+  { key: 'stay', icon: 'completed', text: '留校申请', to: '/stay' },
+  { key: 'return', icon: 'back-top', text: '返校登记', to: '/return' },
   { key: 'checkin', icon: 'location-o', text: '留校签到' },
-  { key: 'records', icon: 'records', text: '我的记录' },
-  { key: 'profile', icon: 'contact', text: '个人信息' }
+  { key: 'records', icon: 'records', text: '我的记录', to: '/more' },
+  { key: 'profile', icon: 'apps-o', text: '更多功能', to: '/more' }
 ]
 const STAFF_FEATURES = [
   { key: 'approval', icon: 'audit', text: '假期审批' },
@@ -124,10 +124,14 @@ const STAFF_TABS = [
 const tabs = computed(() => (isStaff.value ? STAFF_TABS : STUDENT_TABS))
 
 function onFeature(f) {
-  showToast(`「${f.text}」将在后续阶段开放`)
+  if (f.to) router.push(f.to)
+  else showToast(`「${f.text}」将在后续阶段开放`)
 }
 function onTabChange(i) {
-  if (i !== 0) showToast(`「${tabs.value[i].text}」将在后续阶段开放`)
+  const t = tabs.value[i]
+  if (i === 0) return
+  if (t.key === 'more') router.push('/more')
+  else showToast(`「${t.text}」将在后续阶段开放`)
 }
 
 async function onSwitchRole(action) {
