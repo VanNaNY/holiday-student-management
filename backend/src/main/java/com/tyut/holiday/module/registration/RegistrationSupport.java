@@ -23,14 +23,19 @@ public class RegistrationSupport {
     private final StudentMapper studentMapper;
     private final HolidayBatchMapper batchMapper;
 
-    /** 当前登录用户对应的学生档案 id，非学生抛错 */
-    public Long currentStudentId() {
+    /** 当前登录用户对应的学生档案，非学生抛错 */
+    public Student currentStudent() {
         Student stu = studentMapper.selectOne(
                 Wrappers.<Student>lambdaQuery().eq(Student::getUserId, UserContext.userId()));
         if (stu == null) {
             throw BizException.forbidden("当前账号不是学生，无法进行登记");
         }
-        return stu.getId();
+        return stu;
+    }
+
+    /** 当前登录用户对应的学生档案 id，非学生抛错 */
+    public Long currentStudentId() {
+        return currentStudent().getId();
     }
 
     /** 取批次，不存在抛错 */

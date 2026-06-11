@@ -96,15 +96,15 @@ const STUDENT_FEATURES = [
   { key: 'leave', icon: 'logistics', text: '离校登记', to: '/leave' },
   { key: 'stay', icon: 'completed', text: '留校申请', to: '/stay' },
   { key: 'return', icon: 'back-top', text: '返校登记', to: '/return' },
-  { key: 'checkin', icon: 'location-o', text: '留校签到' },
-  { key: 'records', icon: 'records', text: '我的记录', to: '/more' },
-  { key: 'profile', icon: 'apps-o', text: '更多功能', to: '/more' }
+  { key: 'checkin', icon: 'location-o', text: '留校签到', to: '/checkin/stay' },
+  { key: 'returnCheckin', icon: 'sign', text: '返校报到', to: '/checkin/return' },
+  { key: 'records', icon: 'apps-o', text: '更多功能', to: '/more' }
 ]
 const STAFF_FEATURES = [
   { key: 'approval', icon: 'audit', text: '假期审批', to: '/approval' },
   { key: 'records', icon: 'records', text: '审批记录', to: '/approval/records' },
+  { key: 'checkinSum', icon: 'location-o', text: '签到汇总', to: '/checkin/summary' },
   { key: 'stat', icon: 'bar-chart-o', text: '批次统计' },
-  { key: 'checkinSum', icon: 'location-o', text: '签到汇总' },
   { key: 'unreg', icon: 'warning-o', text: '假期未登记' },
   { key: 'reset', icon: 'replay', text: '帮助重置' }
 ]
@@ -132,6 +132,7 @@ function onTabChange(i) {
   if (i === 0) return
   if (t.key === 'more') router.push('/more')
   else if (t.key === 'approval') router.push('/approval')
+  else if (t.key === 'checkin') router.push(isStaff.value ? '/checkin/summary' : '/checkin/stay')
   else showToast(`「${t.text}」将在后续阶段开放`)
 }
 

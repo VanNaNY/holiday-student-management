@@ -28,7 +28,13 @@ const routes = [
   // 留校审批（辅导员/副书记）
   { path: '/approval', name: 'ApprovalList', component: () => import('../views/approval/ApprovalList.vue'), meta: { title: '假期审批' } },
   { path: '/approval/records', name: 'ApprovalRecords', component: () => import('../views/approval/ApprovalRecords.vue'), meta: { title: '审批记录' } },
-  { path: '/approval/:id', name: 'ApprovalDetail', component: () => import('../views/approval/ApprovalDetail.vue'), meta: { title: '留校审批详情' } }
+  { path: '/approval/:id', name: 'ApprovalDetail', component: () => import('../views/approval/ApprovalDetail.vue'), meta: { title: '留校审批详情' } },
+
+  // 签到
+  { path: '/checkin/stay', name: 'StayCheckin', component: () => import('../views/checkin/StayCheckin.vue'), meta: { title: '留校签到' } },
+  { path: '/checkin/return', name: 'ReturnCheckin', component: () => import('../views/checkin/ReturnCheckin.vue'), meta: { title: '返校报到' } },
+  { path: '/checkin/summary', name: 'CheckinSummary', component: () => import('../views/checkin/CheckinSummary.vue'), meta: { title: '留校签到汇总' } },
+  { path: '/checkin/detail/:date', name: 'CheckinDetail', component: () => import('../views/checkin/CheckinDetail.vue'), meta: { title: '签到详情' } }
 ]
 
 const router = createRouter({

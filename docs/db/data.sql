@@ -59,8 +59,8 @@ INSERT INTO holiday_batch
 -- 签到规则（留校签到，每天时段 + 校园围栏，半径 800m，坐标为示例）
 INSERT INTO checkin_rule
   (id, batch_id, college_id, type, time_start, time_end, fence_lat, fence_lng, fence_radius) VALUES
-  (1, 1, NULL, 'STAY',   '2026-07-10 08:00:00', '2026-07-10 20:00:00', 37.860000, 112.450000, 800),
-  (2, 1, NULL, 'RETURN', '2026-08-30 08:00:00', '2026-08-31 23:59:59', 37.860000, 112.450000, 800);
+  (1, 1, NULL, 'STAY',   '2026-06-01 00:00:00', '2026-09-30 23:59:59', 37.860000, 112.450000, 800),
+  (2, 1, NULL, 'RETURN', '2026-06-01 00:00:00', '2026-09-30 23:59:59', 37.860000, 112.450000, 800);
 
 -- 留校集中住宿地址
 INSERT INTO central_dorm (id, campus, building, address) VALUES

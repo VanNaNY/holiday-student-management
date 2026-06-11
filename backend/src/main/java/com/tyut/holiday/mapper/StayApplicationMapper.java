@@ -48,4 +48,20 @@ public interface StayApplicationMapper extends BaseMapper<StayApplication> {
                                               @Param("counselorStaffId") Long counselorStaffId,
                                               @Param("collegeId") Long collegeId,
                                               @Param("keyword") String keyword);
+
+    /** 留校已通过的学生数（管辖范围内，去重学生） */
+    @Select("""
+            <script>
+            SELECT COUNT(DISTINCT a.student_id)
+            FROM stay_application a
+            JOIN student s ON s.id = a.student_id
+            LEFT JOIN org_class cl ON cl.id = s.class_id
+            WHERE a.batch_id = #{batchId} AND a.approval_status = 'APPROVED'
+                <if test="counselorStaffId != null"> AND cl.counselor_id = #{counselorStaffId} </if>
+                <if test="collegeId != null"> AND s.college_id = #{collegeId} </if>
+            </script>
+            """)
+    int countApprovedStudents(@Param("batchId") Long batchId,
+                              @Param("counselorStaffId") Long counselorStaffId,
+                              @Param("collegeId") Long collegeId);
 }
