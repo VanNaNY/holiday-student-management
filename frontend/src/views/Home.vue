@@ -102,11 +102,11 @@ const STUDENT_FEATURES = [
 ]
 const STAFF_FEATURES = [
   { key: 'approval', icon: 'audit', text: '假期审批', to: '/approval' },
-  { key: 'records', icon: 'records', text: '审批记录', to: '/approval/records' },
+  { key: 'stat', icon: 'bar-chart-o', text: '批次统计', to: '/stat' },
   { key: 'checkinSum', icon: 'location-o', text: '签到汇总', to: '/checkin/summary' },
-  { key: 'stat', icon: 'bar-chart-o', text: '批次统计' },
-  { key: 'unreg', icon: 'warning-o', text: '假期未登记' },
-  { key: 'reset', icon: 'replay', text: '帮助重置' }
+  { key: 'unreg', icon: 'warning-o', text: '假期未登记', to: '/manage/unregistered' },
+  { key: 'reset', icon: 'replay', text: '帮助重置', to: '/manage/help-reset' },
+  { key: 'more', icon: 'apps-o', text: '更多功能', to: '/staff-more' }
 ]
 const features = computed(() => (isStaff.value ? STAFF_FEATURES : STUDENT_FEATURES))
 
@@ -130,7 +130,7 @@ function onFeature(f) {
 function onTabChange(i) {
   const t = tabs.value[i]
   if (i === 0) return
-  if (t.key === 'more') router.push('/more')
+  if (t.key === 'more') router.push(isStaff.value ? '/staff-more' : '/more')
   else if (t.key === 'approval') router.push('/approval')
   else if (t.key === 'checkin') router.push(isStaff.value ? '/checkin/summary' : '/checkin/stay')
   else showToast(`「${t.text}」将在后续阶段开放`)

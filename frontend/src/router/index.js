@@ -34,7 +34,15 @@ const routes = [
   { path: '/checkin/stay', name: 'StayCheckin', component: () => import('../views/checkin/StayCheckin.vue'), meta: { title: '留校签到' } },
   { path: '/checkin/return', name: 'ReturnCheckin', component: () => import('../views/checkin/ReturnCheckin.vue'), meta: { title: '返校报到' } },
   { path: '/checkin/summary', name: 'CheckinSummary', component: () => import('../views/checkin/CheckinSummary.vue'), meta: { title: '留校签到汇总' } },
-  { path: '/checkin/detail/:date', name: 'CheckinDetail', component: () => import('../views/checkin/CheckinDetail.vue'), meta: { title: '签到详情' } }
+  { path: '/checkin/detail/:date', name: 'CheckinDetail', component: () => import('../views/checkin/CheckinDetail.vue'), meta: { title: '签到详情' } },
+
+  // 管理与统计（教职工）
+  { path: '/staff-more', name: 'StaffMore', component: () => import('../views/manage/StaffMore.vue'), meta: { title: '更多功能' } },
+  { path: '/stat', name: 'BatchStat', component: () => import('../views/manage/BatchStat.vue'), meta: { title: '批次统计' } },
+  { path: '/manage/unregistered', name: 'Unregistered', component: () => import('../views/manage/Unregistered.vue'), meta: { title: '假期未登记' } },
+  { path: '/manage/help-reset', name: 'HelpReset', component: () => import('../views/manage/HelpReset.vue'), meta: { title: '帮助重置登记' } },
+  { path: '/manage/managers', name: 'ManagerAdd', component: () => import('../views/manage/ManagerAdd.vue'), meta: { title: '留校责任人' } },
+  { path: '/manage/central-dorms', name: 'CentralDormAdd', component: () => import('../views/manage/CentralDormAdd.vue'), meta: { title: '集中住宿地址' } }
 ]
 
 const router = createRouter({
