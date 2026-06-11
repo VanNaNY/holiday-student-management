@@ -23,7 +23,12 @@ const routes = [
   // 留校申请
   { path: '/stay', name: 'StayForm', component: () => import('../views/stay/StayForm.vue'), meta: { title: '留校申请' } },
   { path: '/stay/records', name: 'StayRecords', component: () => import('../views/stay/StayRecords.vue'), meta: { title: '留校申请记录' } },
-  { path: '/stay/:id', name: 'StayDetail', component: () => import('../views/stay/StayDetail.vue'), meta: { title: '留校申请详情' } }
+  { path: '/stay/:id', name: 'StayDetail', component: () => import('../views/stay/StayDetail.vue'), meta: { title: '留校申请详情' } },
+
+  // 留校审批（辅导员/副书记）
+  { path: '/approval', name: 'ApprovalList', component: () => import('../views/approval/ApprovalList.vue'), meta: { title: '假期审批' } },
+  { path: '/approval/records', name: 'ApprovalRecords', component: () => import('../views/approval/ApprovalRecords.vue'), meta: { title: '审批记录' } },
+  { path: '/approval/:id', name: 'ApprovalDetail', component: () => import('../views/approval/ApprovalDetail.vue'), meta: { title: '留校审批详情' } }
 ]
 
 const router = createRouter({

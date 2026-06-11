@@ -101,12 +101,12 @@ const STUDENT_FEATURES = [
   { key: 'profile', icon: 'apps-o', text: '更多功能', to: '/more' }
 ]
 const STAFF_FEATURES = [
-  { key: 'approval', icon: 'audit', text: '假期审批' },
+  { key: 'approval', icon: 'audit', text: '假期审批', to: '/approval' },
+  { key: 'records', icon: 'records', text: '审批记录', to: '/approval/records' },
   { key: 'stat', icon: 'bar-chart-o', text: '批次统计' },
   { key: 'checkinSum', icon: 'location-o', text: '签到汇总' },
   { key: 'unreg', icon: 'warning-o', text: '假期未登记' },
-  { key: 'reset', icon: 'replay', text: '帮助重置' },
-  { key: 'more', icon: 'apps-o', text: '更多功能' }
+  { key: 'reset', icon: 'replay', text: '帮助重置' }
 ]
 const features = computed(() => (isStaff.value ? STAFF_FEATURES : STUDENT_FEATURES))
 
@@ -131,6 +131,7 @@ function onTabChange(i) {
   const t = tabs.value[i]
   if (i === 0) return
   if (t.key === 'more') router.push('/more')
+  else if (t.key === 'approval') router.push('/approval')
   else showToast(`「${t.text}」将在后续阶段开放`)
 }
 
